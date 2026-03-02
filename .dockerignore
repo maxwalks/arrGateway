@@ -1,0 +1,10 @@
+node_modules
+.next
+.env*
+!.env.example
+*.md
+.git
+.gitignore
+proposal_template.png
+supabase
+scripts
