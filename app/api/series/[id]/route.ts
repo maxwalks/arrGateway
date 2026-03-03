@@ -2,14 +2,29 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getSeriesById, deleteSeries } from "@/lib/api/sonarr";
 import { hasPermission } from "@/lib/permissions";
+import type { Profile } from "@/types/supabase";
+
+async function getProfile() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { user: null, profile: null };
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single() as { data: Profile | null; error: unknown };
+  return { user, profile };
+}
 
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { user, profile } = await getProfile();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!profile || !hasPermission(profile, "view_series")) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   const { id } = await params;
   try {
@@ -27,16 +42,8 @@ export async function DELETE(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { user, profile } = await getProfile();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
   if (!profile || !hasPermission(profile, "delete_series")) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }

@@ -21,7 +21,12 @@ export default function ActiveDownloadsSummary() {
   });
 
   const active = data?.filter(
-    (t) => t.state === "downloading" || t.state === "metaDL"
+    (t) =>
+      t.state === "downloading" ||
+      t.state === "metaDL" ||
+      t.state === "stalledDL" ||
+      t.state === "checkingDL" ||
+      t.state === "queuedDL"
   ) ?? [];
 
   const totalSpeed = active.reduce((sum, t) => sum + t.dlspeed, 0);

@@ -34,65 +34,49 @@ export default function LoginForm() {
 
   return (
     <div className="w-full max-w-sm">
-      {/* Logo / title */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-text-primary tracking-tight">
-          arrgateway
+      <div className="mb-8 text-center">
+        <p className="text-text-muted text-sm mb-3">Welcome to arrgateway</p>
+        <h1 className="text-3xl font-bold text-text-primary tracking-tight leading-tight">
+          Sign in to your<br />media server
         </h1>
-        <p className="text-text-muted text-sm mt-1">
-          Sign in to access your media
+        <p className="text-text-muted text-sm mt-3">
+          Enter your email and password to continue
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-xs font-medium text-text-muted uppercase tracking-wider mb-1.5"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-surface border border-border-muted rounded-lg px-3 py-2.5 text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-accent-purple transition-colors"
-            placeholder="you@example.com"
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input
+          id="email"
+          type="email"
+          autoComplete="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full bg-surface border border-border-muted rounded-lg px-4 py-3 text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-[#3a3a3a] transition-colors"
+          placeholder="Email address"
+        />
 
-        <div>
-          <label
-            htmlFor="password"
-            className="block text-xs font-medium text-text-muted uppercase tracking-wider mb-1.5"
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full bg-surface border border-border-muted rounded-lg px-3 py-2.5 text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-accent-purple transition-colors"
-            placeholder="••••••••"
-          />
-        </div>
+        <input
+          id="password"
+          type="password"
+          autoComplete="current-password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full bg-surface border border-border-muted rounded-lg px-4 py-3 text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-[#3a3a3a] transition-colors"
+          placeholder="Password"
+        />
 
         {error && (
-          <p className="text-red-400 text-sm">{error}</p>
+          <p className="text-red-400 text-sm text-center pt-1">{error}</p>
         )}
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-accent-purple text-white font-medium text-sm rounded-lg py-2.5 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-[#1e1e1e] hover:bg-[#272727] border border-[#2e2e2e] text-text-primary font-medium text-sm rounded-lg py-3 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? "Signing in…" : "Sign in"}
+          {loading ? "Signing in…" : "Continue"}
         </button>
       </form>
     </div>

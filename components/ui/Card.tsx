@@ -4,6 +4,7 @@ const accentBorder = {
   purple: "border-accent-purple",
   lime: "border-accent-lime",
   amber: "border-accent-amber",
+  cyan: "border-accent-cyan",
   none: "border-border-muted",
 } as const;
 

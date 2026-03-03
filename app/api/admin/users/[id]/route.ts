@@ -32,10 +32,11 @@ export async function PATCH(
     is_admin?: boolean;
   };
 
+  const { display_name, permissions, is_admin } = body;
   const admin = createAdminClient();
   const { data, error } = await admin
     .from("profiles")
-    .update(body)
+    .update({ display_name, permissions, is_admin })
     .eq("id", id)
     .select()
     .single() as { data: Profile | null; error: { message: string } | null };

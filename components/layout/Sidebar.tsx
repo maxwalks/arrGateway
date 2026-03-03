@@ -7,6 +7,7 @@ import {
   Film,
   Tv2,
   Download,
+  Activity,
   Users,
   LogOut,
 } from "lucide-react";
@@ -19,6 +20,7 @@ const navItems = [
   { href: "/movies", label: "Movies", icon: Film },
   { href: "/series", label: "Series", icon: Tv2 },
   { href: "/downloads", label: "Downloads", icon: Download },
+  { href: "/health", label: "Health", icon: Activity },
 ];
 
 interface SidebarProps {
